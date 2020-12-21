@@ -17,6 +17,8 @@ def get_corner_tiles(tiles, all_edges):
 	unique_edges = [e for e in all_edges if all_edges.count(e) == 1]
 	edge_tiles = [tile for tile in tiles for edge in unique_edges if edge in tile.normalised_edges]
 
+	return list({t for t in edge_tiles if edge_tiles.count(t) == 2})
+
 
 def get_all_orientations(t):
 	r = lambda tile: ["".join(list(x)) for x in zip(*tile[::-1])]
@@ -29,8 +31,6 @@ def orient_tile(tile, top_edge_candidates, left_edge_candidates):
 		if normalise(p[0]) == normalise(top) and normalise("".join(y[0] for y in p)) == normalise(left):
 			tile.set_orientation(p)
 			return tile
-
-	return list({t for t in edge_tiles if edge_tiles.count(t) == 2})
 
 
 def build_grid(tiles, corner_tiles, all_edges, dim_size):
